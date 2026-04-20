@@ -12,7 +12,8 @@ let tileW,tileH;
 
 function preload(){
   //
-  camPhoto=loadImage('data/JermaTestImg.png');
+  //camPhoto=loadImage('data/JermaTestImg.png');
+  camPhoto=loadImage('data/LebronTestImg.jpg');
   //testImg=loadImage('data/NLTestImg.jpg');
 }
 
@@ -38,7 +39,7 @@ function draw() {
   // put drawing code here
   //image(camPhoto,width/2,height/2);
 
-  scramblephoto();
+  tileGenerate();
   if (gameState=3){
     // photo state
     // takephoto();
@@ -60,7 +61,7 @@ function takephoto(){
   //load webcam to cam photo
 }
 
-function scramblephoto(){
+function tileGenerate(){ //generate the tiles unaltered
   //
   //camPhoto.loadPixels(); 
   //console.log(camPhoto);
@@ -71,45 +72,39 @@ function scramblephoto(){
   for(k=0;k<tileH;k++){
     for(i=0;i<tileW;i++){
       var tempTileArr = camPhoto.get(temptileW*i,temptileH*k,temptileW,temptileH);
-      var tileTempLocation = (createVector(temptileW*i,temptile*k));
+      var tileTempLocation = (createVector(temptileW*i,temptileH*k));
       var tileTempItem = (new tile(tempTileArr,tileTempLocation));
       tileArray.push(tileTempItem);
-      console.log(tileArray[tileW*k+i])
+      //console.log(tileArray[tileW*k+i])
   }
   }
   //console.log(tileArray);
   
   for (i=0;i<tileArray.length;i++){
     //
-    var tempTileImg= tileArray[i];
-    //image(tempTileImg,int(random(0,width)),int(random(0,height)));//debug to test print tiles
+    var tempTileImgItem= tileArray[i];
+    //console.log(tempTileImgItem); //debug log
+    var tempTileImg = tempTileImgItem.tileRawImg; //get IMAGE data from object
+    image(tempTileImg,int(random(0,width)),int(random(0,height)));//debug to test print tiles
     var operationRand
     //filter(INVERT);
   }
   //console.log(tileArray[0]);
   //image(tileArray[0],width/2,height/2)
 
+
+  //scrambler
   for(i=0;i<(tileW*tileH);i++){
-    //var tempTileArr = pixels (camPhoto);
-    //console.log(tempTileArr);
+    var tempTileImgItem= tileArray[i];
+    tempTileImgItem.scramble();
     
-    //
   }
   noLoop();
 }
 
-function tileGenerate(){
+function tileScramble(){ // scramble and alter tiles
+  //go thru array and randomize process
   //
-  altPhoto.loadPixels(); // load image pixels
-  
-    // take cut of image
-    // fill selection with transparent pixels
-    // record position
-    // add tile to array
-  //scramble tiles
-  //catch important features with facial detection
-  //replace cut areas with transparent pixels
-  //use get() to divy out tiles
 }
 
 function gameloop(){
