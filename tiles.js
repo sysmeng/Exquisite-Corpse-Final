@@ -16,7 +16,7 @@ class tile{
         //
     }
 
-    scramble(){
+    scramble(opVal){
         //
     }
 }

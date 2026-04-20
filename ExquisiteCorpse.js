@@ -67,11 +67,14 @@ function scramblephoto(){
   var temptileW = int(camPhoto.width/tileW);
   var temptileH = int(camPhoto.height/tileH);
 
-  console.log(temptileW,temptileH);
+  //console.log(temptileW,temptileH);
   for(k=0;k<tileH;k++){
     for(i=0;i<tileW;i++){
       var tempTileArr = camPhoto.get(temptileW*i,temptileH*k,temptileW,temptileH);
-      tileArray.push(tempTileArr);
+      var tileTempLocation = (createVector(temptileW*i,temptile*k));
+      var tileTempItem = (new tile(tempTileArr,tileTempLocation));
+      tileArray.push(tileTempItem);
+      console.log(tileArray[tileW*k+i])
   }
   }
   //console.log(tileArray);
