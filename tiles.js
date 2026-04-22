@@ -11,8 +11,10 @@ class tile{
 
     }
 
-    update(){
+    update(mouseVector){
         // interact!
+        this.pos=mouseVector;
+        console.log(this.pos);
     }
 
     graphics(){
@@ -20,29 +22,26 @@ class tile{
         push();
         if (this.opVal==0){
             //
-            console.log("A");
+            //console.log("A");
             //tint
-            this.transVal=color(random(150,255),random(150,255),random(150,255));
-            console.log(this.transVal);
+            //console.log(this.transVal);
             tint(this.transVal);
             image(this.tileRawImg,this.pos.x,this.pos.y);
             
         }
         else if (this.opVal==1){
             //
-            console.log("B");
+            //console.log("B");
             //scale
-            this.transVal=random(1.2,1.5);
-            console.log(this.transVal);   
+            //console.log(this.transVal);   
 
             image(this.tileRawImg,this.pos.x,this.pos.y,int(this.tileRawImg.width*this.transVal),int(this.tileRawImg.height*this.transVal));
         }
         else if(this.opVal==2){
             //
-            console.log("C");
+            //console.log("C");
             //shear
-            this.transVal=random(-1/16,1/16);
-            console.log(this.transVal);
+            //console.log(this.transVal);
             shearX(PI*this.transVal);
             rotate(this.transVal);
             image(this.tileRawImg,this.pos.x,this.pos.y,int(this.tileRawImg.width*(1+abs(this.transVal)),int(this.tileRawImg.height*(1+abs(this.transVal)))));
@@ -50,7 +49,7 @@ class tile{
         }
         else if(this.opVal==3){
             //
-            console.log("D");
+            //console.log("D");
             //mash
             image(this.tileRawImg,this.pos.x,this.pos.y);
         }
@@ -68,5 +67,20 @@ class tile{
         this.opVal=int(random(0,3));
         //console.log(this.opVal);
         //recut
+        if (this.opVal==0){
+            this.transVal=color(random(150,255),random(150,255),random(150,255));
+        }
+        else if(this.opVal==1){
+            //
+            this.transVal=random(1.2,1.5);
+        }
+        else if(this.opVal==2){
+            //
+            this.transVal=random(-1/16,1/16);
+        }
+        else if(this.opVal==3){
+            //
+            
+        }
     }
 }

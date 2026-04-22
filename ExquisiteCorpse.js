@@ -26,7 +26,7 @@ function setup() {
   tileH=4;
 
   //console.log(scale);
-  imageMode(CENTER);
+  imageMode(CENTER); //image mode center!
   camPhoto.resize(0,height-200);
 
   camPhoto.loadPixels();
@@ -94,14 +94,17 @@ function tileGenerate(){ //generate the tiles unaltered
   }
 
   for(i=0;i<(tileW*tileH);i++){ //interact loop
+    //per item
     var tempTileImgItem= tileArray[i];
     var tempTileItemPos=tempTileImgItem.pos
     //console.log(tempTileItemPos);
-    if("mouse is within item bounds,"){
+    if(0==0){ //mouse is within item bounds
       //
-      
+      var mouseVector=(mouseX,mouseY);
+      tempTileImgItem.update(mouseVector);
+
     }
-    tempTileImgItem.update();
+    
   }
   noLoop();
 }
@@ -115,4 +118,27 @@ function gameloop(){
   //
   //update 
   //redraw
+}
+
+function mousePressed(){
+  // debug tester
+  console.log("ping");
+  for(i=0;i<(1);i++){ //interact loop
+    //per item
+    var tempTileImgItem=tileArray[i];
+    var tempTileItemPos=tempTileImgItem.pos
+    //console.log(tempTileItemPos);
+    var mouseVector=createVector(mouseX,mouseY);
+
+    if(mouseVector){ //mouse is within item bounds
+      //
+      tempTileImgItem.update(mouseVector);
+      tempTileImgItem.graphics();
+
+    }
+    
+  }
+
+
+
 }
