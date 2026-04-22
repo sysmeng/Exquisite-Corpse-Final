@@ -5,6 +5,8 @@ let camX, camY;
 let scale;
 let altPhoto;
 
+let buttonArray=[];
+
 let tileArray=[];
 let tileW,tileH;
 
@@ -20,7 +22,7 @@ function preload(){
 function setup() {
   createCanvas(windowWidth,windowHeight);
   background(0);
-  gameState = 3;
+  gameState = 4;
 
   tileW=4;
   tileH=4;
@@ -32,24 +34,35 @@ function setup() {
   camPhoto.loadPixels();
  // put setup code here
  // init random array for tiles
+
+ var buttonSize=createVector(300,200);
+ var buttonPos=createVector(width/2,height/2);
+ buttonArray[0]=new button(buttonSize,buttonPos,"test");
  
 }
 
 function draw() {
   // put drawing code here
   //image(camPhoto,width/2,height/2);
+  background(0);
+  
+  var buttonObj=buttonArray[0];
+  buttonObj.graphic();
 
-  tileGenerate();
-  if (gameState=3){
+  /*
+  if (gameState==3){
     // photo state
     // takephoto();
-  } else if (gameState=4){
+  } else if (gameState==4){
     // generate the distortions
-    //tileGenerate();
+    tileGenerate();
+    console.log("scrabb");
+    tileScramble();
+    gameState=5;
   } else{
-    //gameloop();
+    gameloop();
   }
-  
+  */
 }
 
 
@@ -81,17 +94,25 @@ function tileGenerate(){ //generate the tiles unaltered
   }
 
 
+  
+  
+
+  
+}
+
+function tileScramble(){ // scramble and alter tiles
+  //go thru array and randomize process
+  //
   //scrambler, assign random values
   for(i=0;i<(tileW*tileH);i++){
     var tempTileImgItem= tileArray[i];
     tempTileImgItem.scramble();
 
   }
-  for(i=0;i<(tileW*tileH);i++){ //draw loop
-    var tempTileImgItem= tileArray[i];
-    tempTileImgItem.graphics();
+}
 
-  }
+function gameloop(){
+  //
 
   for(i=0;i<(tileW*tileH);i++){ //interact loop
     //per item
@@ -100,28 +121,23 @@ function tileGenerate(){ //generate the tiles unaltered
     //console.log(tempTileItemPos);
     if(0==0){ //mouse is within item bounds
       //
-      var mouseVector=(mouseX,mouseY);
+      var mouseVector=createVector(mouseX,mouseY);
       tempTileImgItem.update(mouseVector);
 
-    }
-    
   }
-  noLoop();
-}
-
-function tileScramble(){ // scramble and alter tiles
-  //go thru array and randomize process
-  //
-}
-
-function gameloop(){
-  //
+    for(i=0;i<(tileW*tileH);i++){ //draw loop
+      var tempTileImgItem= tileArray[i];
+      tempTileImgItem.graphics();  
+  }
+  }
+  
   //update 
   //redraw
 }
-
+/*
 function mousePressed(){
   // debug tester
+  // 4 22 not finished
   console.log("ping");
   for(i=0;i<(1);i++){ //interact loop
     //per item
@@ -141,4 +157,4 @@ function mousePressed(){
 
 
 
-}
+}*/
