@@ -68,36 +68,40 @@ function tileGenerate(){ //generate the tiles unaltered
   var temptileW = int(camPhoto.width/tileW);
   var temptileH = int(camPhoto.height/tileH);
 
-  //console.log(temptileW,temptileH);
-  for(k=0;k<tileH;k++){
+
+
+  for(k=0;k<tileH;k++){ //create tile objects
     for(i=0;i<tileW;i++){
       var tempTileArr = camPhoto.get(temptileW*i,temptileH*k,temptileW,temptileH);
-      var tileTempLocation = (createVector(temptileW*i,temptileH*k));
+      var tileTempLocation = (createVector((width-camPhoto.width)/2+temptileW*i,((height-camPhoto.height)/2)+temptileH*k));
       var tileTempItem = (new tile(tempTileArr,tileTempLocation));
       tileArray.push(tileTempItem);
       //console.log(tileArray[tileW*k+i])
   }
   }
-  //console.log(tileArray);
-  
-  for (i=0;i<tileArray.length;i++){
-    //
-    var tempTileImgItem= tileArray[i];
-    //console.log(tempTileImgItem); //debug log
-    var tempTileImg = tempTileImgItem.tileRawImg; //get IMAGE data from object
-    image(tempTileImg,int(random(0,width)),int(random(0,height)));//debug to test print tiles
-    var operationRand
-    //filter(INVERT);
-  }
-  //console.log(tileArray[0]);
-  //image(tileArray[0],width/2,height/2)
 
 
-  //scrambler
+  //scrambler, assign random values
   for(i=0;i<(tileW*tileH);i++){
     var tempTileImgItem= tileArray[i];
     tempTileImgItem.scramble();
-    
+
+  }
+  for(i=0;i<(tileW*tileH);i++){ //draw loop
+    var tempTileImgItem= tileArray[i];
+    tempTileImgItem.graphics();
+
+  }
+
+  for(i=0;i<(tileW*tileH);i++){ //interact loop
+    var tempTileImgItem= tileArray[i];
+    var tempTileItemPos=tempTileImgItem.pos
+    //console.log(tempTileItemPos);
+    if("mouse is within item bounds,"){
+      //
+      
+    }
+    tempTileImgItem.update();
   }
   noLoop();
 }
