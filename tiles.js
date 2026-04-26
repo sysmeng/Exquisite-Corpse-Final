@@ -11,10 +11,12 @@ class tile{
 
     }
 
-    update(mouseVector){
+    update(newVect){
         // interact!
-        this.pos=mouseVector;
-        console.log(this.pos);
+        this.moveVect=newVect;
+        this.pos=this.pos.add(this.moveVect);
+        //this.dud=mouseVector;
+        //console.log(this.pos);
     }
 
     graphics(){

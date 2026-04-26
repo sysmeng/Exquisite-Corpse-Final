@@ -46,10 +46,10 @@ function draw() {
   //image(camPhoto,width/2,height/2);
   background(0);
   
-  var buttonObj=buttonArray[0];
-  buttonObj.graphic();
+  //var buttonObj=buttonArray[0];
+  //buttonObj.graphic();
 
-  /*
+  
   if (gameState==3){
     // photo state
     // takephoto();
@@ -62,7 +62,7 @@ function draw() {
   } else{
     gameloop();
   }
-  */
+  
 }
 
 
@@ -116,19 +116,33 @@ function gameloop(){
 
   for(i=0;i<(tileW*tileH);i++){ //interact loop
     //per item
-    var tempTileImgItem= tileArray[i];
-    var tempTileItemPos=tempTileImgItem.pos
-    //console.log(tempTileItemPos);
-    if(0==0){ //mouse is within item bounds
-      //
-      var mouseVector=createVector(mouseX,mouseY);
-      tempTileImgItem.update(mouseVector);
+    var tempTileItem = tileArray[i];
+    var tempTileItemPos = tempTileItem.pos;
+    var temptileW = int(camPhoto.width/tileW);
+    var temptileH = int(camPhoto.height/tileH);
+    
+    if (mouseIsPressed==true){
+      var mousePosVect=createVector(mouseX,mouseY);
+      if(mouseX > tempTileItemPos.x-temptileW/2-10 && mouseX < tempTileItemPos.x + temptileW/2+10 && mouseY > tempTileItemPos.y-temptileH/2-10 && mouseY < tempTileItemPos.y + temptileH/2+10){
+        //im borrowing this if statement from here - adapted for my purposes: https://editor.p5js.org/NicolasTilly/sketches/mH-TgZcFa
+        //console.log("pee");
+        //console.log("mouse "+ mousePosVect);
+        //console.log("tile "+ tempTileItemPos);
+        var mouseMoveVect= createVector(mouseX-pmouseX,mouseY-pmouseY); //thank god for pmouse i love you
+        //console.log("mousemove "+mouseMoveVect);
+        tempTileItem.update(mouseMoveVect);
 
+        //mousePosVect=createVector(mouseX,mouseY);
+      }
+      
+      //var offsetVect = tempTileItemPos.sub(mousePosVect);
+      //tempTileItem.update(offsetVect);
+    }
+    
   }
     for(i=0;i<(tileW*tileH);i++){ //draw loop
       var tempTileImgItem= tileArray[i];
       tempTileImgItem.graphics();  
-  }
   }
   
   //update 
@@ -139,17 +153,22 @@ function mousePressed(){
   // debug tester
   // 4 22 not finished
   console.log("ping");
-  for(i=0;i<(1);i++){ //interact loop
+  for(i=10;i<(11);i++){ //interact loop
     //per item
     var tempTileImgItem=tileArray[i];
     var tempTileItemPos=tempTileImgItem.pos
     //console.log(tempTileItemPos);
     var mouseVector=createVector(mouseX,mouseY);
-
-    if(mouseVector){ //mouse is within item bounds
-      //
-      tempTileImgItem.update(mouseVector);
-      tempTileImgItem.graphics();
+    var boundscheck=tempTileItemPos.sub(mouseVector);
+    var temptileW = int(camPhoto.width/tileW);
+    var temptileH = int(camPhoto.height/tileH);
+    console.log(boundscheck);
+    if(boundscheck.x>-temptileW/2 && boundscheck.x < temptileW/2){ //mouse is within item bounds x
+        //
+        //tempTileImgItem.update(mouseVector);
+        console.log(mouseVector);
+        //tempTileImgItem.graphics();
+      
 
     }
     
