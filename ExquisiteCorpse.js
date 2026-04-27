@@ -6,7 +6,6 @@ let scale;
 let altPhoto;
 
 let buttonArray=[];
-let takePhoto;
 
 let tileArray=[];
 let tileW,tileH;
@@ -14,12 +13,12 @@ let tileW,tileH;
 //let testImg;
 
 function preload(){
-  // purley debug
+  // purley debug. These are test images
   //camPhoto=loadImage('data/JermaTestImg.png');
   camPhoto=loadImage('data/LebronTestImg.jpg');
   //testImg=loadImage('data/NLTestImg.jpg');
   fontData=loadFont('data/MAROLA.TTF');
-  console.log(fontData);
+  //console.log(fontData);
 }
 
 function setup() {
@@ -30,16 +29,13 @@ function setup() {
   tileW=4;
   tileH=4;
 
-  //console.log(scale);
   imageMode(CENTER); //image mode center!
-  camPhoto.resize(0,height-200);
 
-  camPhoto.loadPixels();
- // put setup code here
- // init random array for tiles
-  var buttonSize=createVector(300,200);
+  // this is setting up a test button. 
+  var buttonSize=createVector(300,100);
   var buttonPos=createVector(width/2,height/2);
-  takePhoto=new button(buttonSize,buttonPos,"test",fontData);
+  var takePhotoBtn=new button(buttonSize,buttonPos,"that's me!",fontData);
+  buttonArray.push(takePhotoBtn);
 
  
  
@@ -47,14 +43,14 @@ function setup() {
 
 function draw() {
   // put drawing code here
+
   //image(camPhoto,width/2,height/2);
   background(0);
   
   //var buttonObj=buttonArray[0];
   //buttonObj.graphic();
-
-  takephoto();
-  /*
+  //takephoto();
+   //disabled for working on photo scene
   if (gameState==3){
     // photo state
     // takephoto();
@@ -67,35 +63,41 @@ function draw() {
   } else{
     gameloop();
   }
-  */
+  
 }
 
+function preloadPhoto(){
+  //
 
+}
 
 function takephoto(){
-  //
-  var buttonSize=takePhoto.sizeVect;
-  var buttonPos=takePhoto.posVect;
+  //load webcam to cam photo
+  //overlay for facial alignment
+
+  //button generation
+  var takePhotoButton = buttonArray[0];
+  var buttonSize=takePhotoButton.sizeVect;
+  var buttonPos=takePhotoButton.posVect;
   
-  takePhoto.graphic();
+  takePhotoButton.graphic();
   if (mouseX > buttonPos.x-buttonSize.x/2-10 && mouseX < buttonPos.x + buttonSize.x/2+10 && mouseY > buttonPos.y-buttonSize.y/2-10 && mouseY < buttonPos.y + buttonSize.y/2+10){
     if (mouseIsPressed==true){
       //
-      takePhoto.engaged=true;
+      takePhotoButton.engaged=true;
     }
     else{
-      takePhoto.engaged=false;
+      takePhotoButton.engaged=false;
     }
   }
-
-
-  //generate button
-  //overlay for facial alignment
-  //load webcam to cam photo
 }
 
 function tileGenerate(){ //generate the tiles unaltered
-  //
+  // 4 27 - moved from setup to the setup() to here
+  camPhoto.resize(0,height-200);
+  camPhoto.loadPixels();
+
+
   //camPhoto.loadPixels(); 
   //console.log(camPhoto);
   var temptileW = int(camPhoto.width/tileW);
@@ -112,12 +114,6 @@ function tileGenerate(){ //generate the tiles unaltered
       //console.log(tileArray[tileW*k+i])
   }
   }
-
-
-  
-  
-
-  
 }
 
 function tileScramble(){ // scramble and alter tiles
@@ -144,31 +140,29 @@ function gameloop(){
     if (mouseIsPressed==true){
       var mousePosVect=createVector(mouseX,mouseY);
       if(mouseX > tempTileItemPos.x-temptileW/2-10 && mouseX < tempTileItemPos.x + temptileW/2+10 && mouseY > tempTileItemPos.y-temptileH/2-10 && mouseY < tempTileItemPos.y + temptileH/2+10){
-        //im borrowing this if statement from here - adapted for my purposes: https://editor.p5js.org/NicolasTilly/sketches/mH-TgZcFa
-        //console.log("pee");
+        //im borrowing this if statement's structure from here - adapted for my purposes: https://editor.p5js.org/NicolasTilly/sketches/mH-TgZcFa
+        //this is comparing the mouse X and mouse Y compared to the size and position bounds of the current tile. I've added at 10px margin to make grabbing tiles a little eaiser.
+
+        //debug items
         //console.log("mouse "+ mousePosVect);
         //console.log("tile "+ tempTileItemPos);
-        var mouseMoveVect= createVector(mouseX-pmouseX,mouseY-pmouseY); //thank god for pmouse i love you
-        //console.log("mousemove "+mouseMoveVect);
-        tempTileItem.update(mouseMoveVect);
 
-        //mousePosVect=createVector(mouseX,mouseY);
+        var mouseMoveVect= createVector(mouseX-pmouseX,mouseY-pmouseY); //thank god for pmouse i love you
+        tempTileItem.update(mouseMoveVect); //this sends the new movement vector to the items
+
+        //debug items
+        //console.log("mousemove "+mouseMoveVect); 
       }
-      
-      //var offsetVect = tempTileItemPos.sub(mousePosVect);
-      //tempTileItem.update(offsetVect);
     }
     
   }
-    for(i=0;i<(tileW*tileH);i++){ //draw loop
+    for(i=0;i<(tileW*tileH);i++){ //draw loop for tiles
       var tempTileImgItem= tileArray[i];
       tempTileImgItem.graphics();  
   }
-  
-  //update 
-  //redraw
 }
 /*
+//this is defunct. drag functionality is now up and running.
 function mousePressed(){
   // debug tester
   // 4 22 not finished
