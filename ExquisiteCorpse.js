@@ -2,6 +2,8 @@ let camPhoto;
 let fontData; //font storage
 let gameState;
 
+let cameraFeed;
+
 let buttonArray=[];
 
 let tileArray=[];
@@ -11,7 +13,7 @@ function preload(){
   // purley debug. These are test images
 
   //camPhoto=loadImage('data/JermaTestImg.png');
-  camPhoto=loadImage('data/LebronTestImg.jpg');
+  //camPhoto=loadImage('data/LebronTestImg.jpg');
   //testImg=loadImage('data/NLTestImg.jpg');
 
   fontData=loadFont('data/MAROLA.TTF');
@@ -21,19 +23,22 @@ function preload(){
 function setup() {
   createCanvas(windowWidth,windowHeight);
   background(0);
-  gameState = 4;
+  gameState = 3;
 
-  tileW=4;
+  tileW=5;
   tileH=4;
 
   imageMode(CENTER); //image mode center!
 
   // this is setting up a test button. 
   var buttonSize=createVector(300,100);
-  var buttonPos=createVector(width/2,height/2);
+  var buttonPos=createVector(width/2,height/2+200);
   var takePhotoBtn=new button(buttonSize,buttonPos,"that's me!");
   buttonArray.push(takePhotoBtn);
 
+  //I'm using the code structure of this example: https://p5js.org/examples/imported-media-video-capture/
+  cameraFeed=createCapture(VIDEO);
+  cameraFeed.hide();
  
  
 }
@@ -41,11 +46,11 @@ function setup() {
 function draw() {
   background(0);
   
-  takephoto();
+  //takephoto();
    //disabled for working on photo scene
-  /*if (gameState==3){
+  if (gameState==3){
     // photo state
-    // takephoto();
+    takephoto();
   } else if (gameState==4){
     // generate the distortions
     tileGenerate();
@@ -55,7 +60,7 @@ function draw() {
   } else{
     gameloop();
   }
-  */
+  
 }
 
 function preloadPhoto(){
@@ -66,6 +71,11 @@ function preloadPhoto(){
 function takephoto(){
   //load webcam to cam photo
   //overlay for facial alignment
+  var margin=100;
+  push();
+  //scale(-1,1);
+  image(cameraFeed, width/2, height/2, width/2-margin, (width/2 * cameraFeed.height / cameraFeed.width)-margin);
+  pop();
 
   //button generation
   var takePhotoButton = buttonArray[0];
@@ -82,15 +92,25 @@ function takephoto(){
       takePhotoButton.engaged=false;
     }
   }
+
+  if (takePhotoButton.engaged==true){
+    var tempSnap=createImage(480,640); //image obj var just to jump to the globalvar
+    tempSnap.copy(cameraFeed,0,0,cameraFeed.width,cameraFeed.height,0,0,cameraFeed.width,cameraFeed.height)
+    camPhoto=tempSnap;
+    console.log("snap");
+    console.log(camPhoto);
+    gameState=4;
+  }
 }
 
 function tileGenerate(){ //generate the tiles unaltered
   // 4 27 - moved from setup to the setup() to here
-  camPhoto.resize(0,height-200);
+  //camPhoto.resize(0,0);
   camPhoto.loadPixels();
 
-  var temptileW = int(camPhoto.width/tileW);
-  var temptileH = int(camPhoto.height/tileH);
+  var temptileW = floor(camPhoto.width/tileW);
+  console.log(temptileW);
+  var temptileH = floor(camPhoto.height/tileH);
 
 
 
