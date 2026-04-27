@@ -1,22 +1,19 @@
 let camPhoto;
-let fontData;
+let fontData; //font storage
 let gameState;
-let camX, camY;
-let scale;
-let altPhoto;
 
 let buttonArray=[];
 
 let tileArray=[];
-let tileW,tileH;
-
-//let testImg;
+let tileW,tileH
 
 function preload(){
   // purley debug. These are test images
+
   //camPhoto=loadImage('data/JermaTestImg.png');
   camPhoto=loadImage('data/LebronTestImg.jpg');
   //testImg=loadImage('data/NLTestImg.jpg');
+
   fontData=loadFont('data/MAROLA.TTF');
   //console.log(fontData);
 }
@@ -34,7 +31,7 @@ function setup() {
   // this is setting up a test button. 
   var buttonSize=createVector(300,100);
   var buttonPos=createVector(width/2,height/2);
-  var takePhotoBtn=new button(buttonSize,buttonPos,"that's me!",fontData);
+  var takePhotoBtn=new button(buttonSize,buttonPos,"that's me!");
   buttonArray.push(takePhotoBtn);
 
  
@@ -42,16 +39,11 @@ function setup() {
 }
 
 function draw() {
-  // put drawing code here
-
-  //image(camPhoto,width/2,height/2);
   background(0);
   
-  //var buttonObj=buttonArray[0];
-  //buttonObj.graphic();
-  //takephoto();
+  takephoto();
    //disabled for working on photo scene
-  if (gameState==3){
+  /*if (gameState==3){
     // photo state
     // takephoto();
   } else if (gameState==4){
@@ -63,7 +55,7 @@ function draw() {
   } else{
     gameloop();
   }
-  
+  */
 }
 
 function preloadPhoto(){
@@ -97,9 +89,6 @@ function tileGenerate(){ //generate the tiles unaltered
   camPhoto.resize(0,height-200);
   camPhoto.loadPixels();
 
-
-  //camPhoto.loadPixels(); 
-  //console.log(camPhoto);
   var temptileW = int(camPhoto.width/tileW);
   var temptileH = int(camPhoto.height/tileH);
 
@@ -119,7 +108,7 @@ function tileGenerate(){ //generate the tiles unaltered
 function tileScramble(){ // scramble and alter tiles
   //go thru array and randomize process
   //
-  //scrambler, assign random values
+  //scrambler, assign random values (in obj)
   for(i=0;i<(tileW*tileH);i++){
     var tempTileImgItem= tileArray[i];
     tempTileImgItem.scramble();
@@ -143,15 +132,8 @@ function gameloop(){
         //im borrowing this if statement's structure from here - adapted for my purposes: https://editor.p5js.org/NicolasTilly/sketches/mH-TgZcFa
         //this is comparing the mouse X and mouse Y compared to the size and position bounds of the current tile. I've added at 10px margin to make grabbing tiles a little eaiser.
 
-        //debug items
-        //console.log("mouse "+ mousePosVect);
-        //console.log("tile "+ tempTileItemPos);
-
         var mouseMoveVect= createVector(mouseX-pmouseX,mouseY-pmouseY); //thank god for pmouse i love you
         tempTileItem.update(mouseMoveVect); //this sends the new movement vector to the items
-
-        //debug items
-        //console.log("mousemove "+mouseMoveVect); 
       }
     }
     
@@ -161,33 +143,3 @@ function gameloop(){
       tempTileImgItem.graphics();  
   }
 }
-/*
-//this is defunct. drag functionality is now up and running.
-function mousePressed(){
-  // debug tester
-  // 4 22 not finished
-  console.log("ping");
-  for(i=10;i<(11);i++){ //interact loop
-    //per item
-    var tempTileImgItem=tileArray[i];
-    var tempTileItemPos=tempTileImgItem.pos
-    //console.log(tempTileItemPos);
-    var mouseVector=createVector(mouseX,mouseY);
-    var boundscheck=tempTileItemPos.sub(mouseVector);
-    var temptileW = int(camPhoto.width/tileW);
-    var temptileH = int(camPhoto.height/tileH);
-    console.log(boundscheck);
-    if(boundscheck.x>-temptileW/2 && boundscheck.x < temptileW/2){ //mouse is within item bounds x
-        //
-        //tempTileImgItem.update(mouseVector);
-        console.log(mouseVector);
-        //tempTileImgItem.graphics();
-      
-
-    }
-    
-  }
-
-
-
-}*/

@@ -1,10 +1,10 @@
 class button{
     //
-    constructor(sizeVect,posVect,text,font){
+    constructor(sizeVect,posVect,text){
         this.sizeVect=sizeVect;
         this.posVect=posVect;
         this.text=text;
-        this.font=font;
+        //this.font=font;
         this.engaged=false;
     }
 
@@ -23,7 +23,7 @@ class button{
             rect(this.posVect.x,this.posVect.y,this.sizeVect.x+20,this.sizeVect.y+20);
             textFont(fontData,50);
         } else{
-            textFont(fontData,60);
+            textFont(fontData,55);
         }
         fill(255,255,255);
         rect(this.posVect.x,this.posVect.y,this.sizeVect.x,this.sizeVect.y);
