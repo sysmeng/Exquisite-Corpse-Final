@@ -6,6 +6,7 @@ let scale;
 let altPhoto;
 
 let buttonArray=[];
+let takePhoto;
 
 let tileArray=[];
 let tileW,tileH;
@@ -17,6 +18,8 @@ function preload(){
   //camPhoto=loadImage('data/JermaTestImg.png');
   camPhoto=loadImage('data/LebronTestImg.jpg');
   //testImg=loadImage('data/NLTestImg.jpg');
+  fontData=loadFont('data/MAROLA.TTF');
+  console.log(fontData);
 }
 
 function setup() {
@@ -34,6 +37,9 @@ function setup() {
   camPhoto.loadPixels();
  // put setup code here
  // init random array for tiles
+  var buttonSize=createVector(300,200);
+  var buttonPos=createVector(width/2,height/2);
+  takePhoto=new button(buttonSize,buttonPos,"test",fontData);
 
  
  
@@ -68,9 +74,9 @@ function draw() {
 
 function takephoto(){
   //
-  var buttonSize=createVector(300,200);
-  var buttonPos=createVector(width/2,height/2);
-  let takePhoto=new button(buttonSize,buttonPos,"test");
+  var buttonSize=takePhoto.sizeVect;
+  var buttonPos=takePhoto.posVect;
+  
   takePhoto.graphic();
   if (mouseX > buttonPos.x-buttonSize.x/2-10 && mouseX < buttonPos.x + buttonSize.x/2+10 && mouseY > buttonPos.y-buttonSize.y/2-10 && mouseY < buttonPos.y + buttonSize.y/2+10){
     if (mouseIsPressed==true){
