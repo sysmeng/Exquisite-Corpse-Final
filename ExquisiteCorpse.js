@@ -13,7 +13,7 @@ let tileW,tileH;
 //let testImg;
 
 function preload(){
-  //
+  // purley debug
   //camPhoto=loadImage('data/JermaTestImg.png');
   camPhoto=loadImage('data/LebronTestImg.jpg');
   //testImg=loadImage('data/NLTestImg.jpg');
@@ -35,9 +35,7 @@ function setup() {
  // put setup code here
  // init random array for tiles
 
- var buttonSize=createVector(300,200);
- var buttonPos=createVector(width/2,height/2);
- buttonArray[0]=new button(buttonSize,buttonPos,"test");
+ 
  
 }
 
@@ -49,7 +47,8 @@ function draw() {
   //var buttonObj=buttonArray[0];
   //buttonObj.graphic();
 
-  
+  takephoto();
+  /*
   if (gameState==3){
     // photo state
     // takephoto();
@@ -62,13 +61,28 @@ function draw() {
   } else{
     gameloop();
   }
-  
+  */
 }
 
 
 
 function takephoto(){
   //
+  var buttonSize=createVector(300,200);
+  var buttonPos=createVector(width/2,height/2);
+  let takePhoto=new button(buttonSize,buttonPos,"test");
+  takePhoto.graphic();
+  if (mouseX > buttonPos.x-buttonSize.x/2-10 && mouseX < buttonPos.x + buttonSize.x/2+10 && mouseY > buttonPos.y-buttonSize.y/2-10 && mouseY < buttonPos.y + buttonSize.y/2+10){
+    if (mouseIsPressed==true){
+      //
+      takePhoto.engaged=true;
+    }
+    else{
+      takePhoto.engaged=false;
+    }
+  }
+
+
   //generate button
   //overlay for facial alignment
   //load webcam to cam photo
