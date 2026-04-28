@@ -25,8 +25,8 @@ function setup() {
   background(0);
   gameState = 3;
 
-  tileW=5;
-  tileH=4;
+  tileW=4;
+  tileH=5;
 
   imageMode(CENTER); //image mode center!
 
@@ -51,6 +51,7 @@ function draw() {
   if (gameState==3){
     // photo state
     takephoto();
+    //gameState=4;
   } else if (gameState==4){
     // generate the distortions
     tileGenerate();
@@ -94,11 +95,11 @@ function takephoto(){
   }
 
   if (takePhotoButton.engaged==true){
-    var tempSnap=createImage(480,640); //image obj var just to jump to the globalvar
+    var tempSnap=createImage(cameraFeed.width,cameraFeed.height); //image obj var just to jump to the globalvar
     tempSnap.copy(cameraFeed,0,0,cameraFeed.width,cameraFeed.height,0,0,cameraFeed.width,cameraFeed.height)
     camPhoto=tempSnap;
     console.log("snap");
-    console.log(camPhoto);
+    //console.log(camPhoto);
     gameState=4;
   }
 }
@@ -108,21 +109,21 @@ function tileGenerate(){ //generate the tiles unaltered
   //camPhoto.resize(0,0);
   camPhoto.loadPixels();
 
-  var temptileW = floor(camPhoto.width/tileW);
-  console.log(temptileW);
-  var temptileH = floor(camPhoto.height/tileH);
+  var temptileW = int(camPhoto.width/tileW);
+  var temptileH = int(camPhoto.height/tileH);
 
 
 
   for(k=0;k<tileH;k++){ //create tile objects
     for(i=0;i<tileW;i++){
       var tempTileArr = camPhoto.get(temptileW*i,temptileH*k,temptileW,temptileH);
-      var tileTempLocation = (createVector((width-camPhoto.width)/2+temptileW*i,((height-camPhoto.height)/2)+temptileH*k));
+      var tileTempLocation = (createVector(100+temptileW*i,100+temptileH*k));
       var tileTempItem = (new tile(tempTileArr,tileTempLocation));
       tileArray.push(tileTempItem);
       //console.log(tileArray[tileW*k+i])
   }
   }
+  //console.log(tileArray);
 }
 
 function tileScramble(){ // scramble and alter tiles
