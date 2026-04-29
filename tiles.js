@@ -14,9 +14,7 @@ class tile{
     update(newVect){
         // interact!
         this.moveVect=newVect;
-        this.pos=this.pos.add(this.moveVect);
-        //this.dud=mouseVector;
-        //console.log(this.pos);
+        this.pos=this.pos.add(this.moveVect); //add new offset vector to position vector
     }
 
     graphics(){

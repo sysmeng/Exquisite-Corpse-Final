@@ -4,7 +4,7 @@ class button{
         this.sizeVect=sizeVect;
         this.posVect=posVect;
         this.text=text;
-        //this.font=font;
+        //this.font=font; //i'm using the global font varible storage
         this.engaged=false;
     }
 

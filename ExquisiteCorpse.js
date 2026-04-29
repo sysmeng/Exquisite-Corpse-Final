@@ -117,7 +117,9 @@ function tileGenerate(){ //generate the tiles unaltered
   for(k=0;k<tileH;k++){ //create tile objects
     for(i=0;i<tileW;i++){
       var tempTileArr = camPhoto.get(temptileW*i,temptileH*k,temptileW,temptileH);
-      var tileTempLocation = (createVector(100+(temptileW+30)*i,100+(temptileH+30)*k));
+      var centeroffsetX=(width-camPhoto.width)/2;
+      var centeroffsetY=(height-camPhoto.height)/2;
+      var tileTempLocation = (createVector(centeroffsetX+(temptileW+10)*i,centeroffsetY+(temptileH+10)*k));
       var tileTempItem = (new tile(tempTileArr,tileTempLocation));
       tileArray.push(tileTempItem);
       //console.log(tileArray[tileW*k+i])
