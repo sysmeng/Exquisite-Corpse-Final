@@ -15,6 +15,7 @@ class button{
 
     graphic(){
         //
+        imageMode(CENTER);
         rectMode(CENTER);
         noStroke();
         if (this.engaged==false){

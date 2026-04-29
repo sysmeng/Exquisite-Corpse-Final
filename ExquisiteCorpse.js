@@ -40,7 +40,7 @@ function setup() {
   // this is setting up the screenshot button
   var buttonSize
   var buttonSize=createVector(400,100); //size as a vector
-  var buttonPos=createVector(width/2,height/2+300); //position as a vector
+  var buttonPos=createVector(width/2,height/2-350); //position as a vector
   var screenshotBtn=new button(buttonSize,buttonPos,"that's me...?");
   buttonArray.push(screenshotBtn)
 
@@ -55,12 +55,13 @@ function setup() {
 
 function draw() {
   background(0);
-  
+
   //takephoto();
    //disabled for working on photo scene
   if (gameState==3){
     // photo state
     takephoto();
+    smile();
     //gameState=4;
   } else if (gameState==4){
     // generate the distortions
@@ -72,6 +73,20 @@ function draw() {
     gameloop();
   }
   
+}
+
+function smile(){
+  //this is temp, while i work on the smile overlay
+  push();
+  fill(0,0);
+  stroke(255,100);
+  strokeWeight(10);
+  ellipse(width/2,height/2,200,200);
+  arc(width/2,height/2,100,100,0,PI);
+  strokeWeight(20);
+  point(width/2-25,height/2-25);
+  point(width/2+25,height/2-25);
+  pop();
 }
 
 function takephoto(){
@@ -187,6 +202,11 @@ function gameloop(){
     else{
       screenshotBtn.engaged=false;
     }
+  }
+
+  if (screenshotBtn.engaged==true){
+    //
+    save('you!.png');
   }
 }
 
