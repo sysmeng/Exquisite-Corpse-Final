@@ -16,6 +16,7 @@ class button{
     graphic(){
         //
         rectMode(CENTER);
+        noStroke();
         if (this.engaged==false){
             //
             noStroke();

@@ -1,4 +1,4 @@
-let camPhoto;
+let camPhoto; //this image for 
 let fontData; //font storage
 let gameState;
 
@@ -16,7 +16,8 @@ function preload(){
   //camPhoto=loadImage('data/LebronTestImg.jpg');
   //testImg=loadImage('data/NLTestImg.jpg');
 
-  fontData=loadFont('data/MAROLA.TTF'); //tha font
+  fontData=loadFont('data/MAROLA.TTF',fontSuccess(),fontFail()); //tha font
+  //sourced from: https://www.dafont.com/marola.font 
   //console.log(fontData);
 }
 
@@ -30,11 +31,20 @@ function setup() {
 
   imageMode(CENTER); //image mode center!
 
-  // this is setting up a test button. 
+  // this is setting up the camera button. 
   var buttonSize=createVector(300,100); //size as a vector
   var buttonPos=createVector(width/2,height/2+200); //position as a vector
   var takePhotoBtn=new button(buttonSize,buttonPos,"that's me!"); //text for the button
   buttonArray.push(takePhotoBtn);
+
+  // this is setting up the screenshot button
+  var buttonSize
+  var buttonSize=createVector(400,100); //size as a vector
+  var buttonPos=createVector(width/2,height/2+300); //position as a vector
+  var screenshotBtn=new button(buttonSize,buttonPos,"that's me...?");
+  buttonArray.push(screenshotBtn)
+
+
 
   //I'm using the code structure of this example: https://p5js.org/examples/imported-media-video-capture/
   cameraFeed=createCapture(VIDEO); //create camera video feed object
@@ -62,11 +72,6 @@ function draw() {
     gameloop();
   }
   
-}
-
-function preloadPhoto(){
-  //
-
 }
 
 function takephoto(){
@@ -106,7 +111,6 @@ function takephoto(){
 
 function tileGenerate(){ //generate the tiles unaltered
   // 4 27 - moved from setup to the setup() to here
-  //camPhoto.resize(0,0);
   camPhoto.loadPixels(); //load bearing line of code that is probably a leftover from earlier development. I don't think it's doing anything in current versions.
 
   var temptileW = int(camPhoto.width/tileW);
@@ -122,7 +126,6 @@ function tileGenerate(){ //generate the tiles unaltered
       var tileTempLocation = (createVector(centeroffsetX+(temptileW+10)*i,centeroffsetY+(temptileH+10)*k));
       var tileTempItem = (new tile(tempTileArr,tileTempLocation));
       tileArray.push(tileTempItem);
-      //console.log(tileArray[tileW*k+i])
   }
   }
   //console.log(tileArray);
@@ -165,4 +168,33 @@ function gameloop(){
       var tempTileImgItem= tileArray[i]; //load item from array
       tempTileImgItem.graphics();  //draw items
   }
+  //
+  rectMode(CENTER);
+  noFill();
+  stroke(255,100);
+  strokeWeight(10);
+  rect(width/2,height/2,500,500);
+  //capture window pic button
+  var screenshotBtn = buttonArray[1];
+  var buttonSize=screenshotBtn.sizeVect;
+  var buttonPos=screenshotBtn.posVect;
+  screenshotBtn.graphic();
+  if (mouseX > buttonPos.x-buttonSize.x/2-10 && mouseX < buttonPos.x + buttonSize.x/2+10 && mouseY > buttonPos.y-buttonSize.y/2-10 && mouseY < buttonPos.y + buttonSize.y/2+10){
+    if (mouseIsPressed==true){ //borrowed from other button
+      //
+      screenshotBtn.engaged=true;
+    }
+    else{
+      screenshotBtn.engaged=false;
+    }
+  }
+}
+
+function fontSuccess(){
+  //
+}
+
+function fontFail(){
+  //
+  console.error("Font Marola failed to load");
 }
