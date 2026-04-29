@@ -66,7 +66,7 @@ function draw() {
   } else if (gameState==4){
     // generate the distortions
     tileGenerate();
-    console.log("scrabb"); //tiles generated console log
+    //console.log("scrabb"); //tiles generated console log
     tileScramble();
     gameState=5;
   } else{
@@ -118,7 +118,7 @@ function takephoto(){
     var tempSnap=createImage(cameraFeed.width,cameraFeed.height); //image obj var just to jump to the globalvar
     tempSnap.copy(cameraFeed,0,0,cameraFeed.width,cameraFeed.height,0,0,cameraFeed.width,cameraFeed.height) //copy the camera data to a IMAGE object :)
     camPhoto=tempSnap; //copy the IMAGE translation to the actual storage spot
-    console.log("snap"); //debug log
+    //console.log("snap"); //debug log
     //console.log(camPhoto);
     gameState=4;
   }
@@ -218,3 +218,9 @@ function fontFail(){
   //
   console.error("Font Marola failed to load");
 }
+
+
+//class feedback 4 29 2026
+// tile movement/drift
+// larger transformations
+// other parts?
