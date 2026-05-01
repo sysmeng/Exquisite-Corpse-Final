@@ -83,4 +83,11 @@ class tile{
             
         }
     }
+
+    drift(){
+        this.driftVect=createVector(random(-10,10),random(-10,10));
+        this.driftVect.limit(0.5);
+        this.pos=this.pos.add(this.driftVect);
+
+    }
 }

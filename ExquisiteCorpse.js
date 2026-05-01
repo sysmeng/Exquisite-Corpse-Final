@@ -138,7 +138,9 @@ function tileGenerate(){ //generate the tiles unaltered
       var tempTileArr = camPhoto.get(temptileW*i,temptileH*k,temptileW,temptileH);
       var centeroffsetX=(width-camPhoto.width)/2;
       var centeroffsetY=(height-camPhoto.height)/2;
-      var tileTempLocation = (createVector(centeroffsetX+(temptileW+10)*i,centeroffsetY+(temptileH+10)*k));
+      var margin = 100;
+      //var tileTempLocation = (createVector(centeroffsetX+(temptileW+10)*i,centeroffsetY+(temptileH+10)*k));
+      var tileTempLocation = (createVector(int(random(margin,width-margin)),int(random(margin,height-margin))));
       var tileTempItem = (new tile(tempTileArr,tileTempLocation));
       tileArray.push(tileTempItem);
   }
@@ -217,6 +219,17 @@ function fontSuccess(){
 function fontFail(){
   //
   console.error("Font Marola failed to load");
+}
+
+function mouseMoved(){
+  //
+  if (gameState==5){
+    for(i=0;i<(tileW*tileH);i++){ //drift loop
+    //per item
+    var tempTileItem = tileArray[i];
+    tempTileItem.drift();
+    }
+  }
 }
 
 
