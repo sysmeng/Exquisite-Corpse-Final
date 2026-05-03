@@ -20,6 +20,7 @@ class tile{
     graphics(){
         //
         push();
+        translate(int(random(-2,2)),int(random(-2,2)));
         if (this.opVal==0){
             //
             //console.log("A");
