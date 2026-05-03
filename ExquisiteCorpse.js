@@ -209,8 +209,8 @@ function gameloop(){
 
   if (screenshotBtn.engaged==true){
     //
-    var screencapPix=loadPixels();
-    var screencapImg = get(width/2-250,height/2-250,500,500);
+    var screencapPix=loadPixels(); //load pixels into new temp item
+    var screencapImg = get(width/2-250,height/2-250,500,500); //create a new item cropped down from the canvas pixels
     save(screencapImg,'you!.png');
 
     //rect(width/2,height/2,500,500);
