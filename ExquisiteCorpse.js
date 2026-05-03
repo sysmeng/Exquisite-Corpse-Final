@@ -1,13 +1,13 @@
-let camPhoto; //this image for 
+let camPhoto; //image storage
 let fontData; //font storage
-let gameState;
+let gameState; //state control
 
-let cameraFeed;
+let cameraFeed; //camera feed object
 
-let buttonArray=[];
+let buttonArray=[]; //an array for buttons even though i only use 2... kinda screwed up...
 
-let tileArray=[];
-let tileW,tileH
+let tileArray=[]; //array for tile items
+let tileW,tileH; //tile parameters. number of vertical and horizontal divisions.
 
 function preload(){
   // purley debug. These are test images
@@ -16,8 +16,9 @@ function preload(){
   //camPhoto=loadImage('data/LebronTestImg.jpg');
   //testImg=loadImage('data/NLTestImg.jpg');
 
-  fontData=loadFont('data/MAROLA.TTF',fontSuccess(),fontFail()); //tha font
+  fontData=loadFont('data/MAROLA.TTF',success,fontFailure); //tha font
   //sourced from: https://www.dafont.com/marola.font 
+  //borrowed syntax with reference to https://p5js.org/reference/p5/loadFont/ example 3 to solve console error bug.
   //console.log(fontData);
 }
 
@@ -212,13 +213,13 @@ function gameloop(){
   }
 }
 
-function fontSuccess(){
-  //
+function fontFailure(event) {
+  console.error('Font failed to load');
+  console.error(event);
 }
 
-function fontFail(){
+function success(event) {
   //
-  console.error("Font Marola failed to load");
 }
 
 function mouseMoved(){
