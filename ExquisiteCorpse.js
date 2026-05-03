@@ -209,7 +209,12 @@ function gameloop(){
 
   if (screenshotBtn.engaged==true){
     //
-    save('you!.png');
+    var screencapPix=loadPixels();
+    var screencapImg = get(width/2-250,height/2-250,500,500);
+    save(screencapImg,'you!.png');
+
+    //rect(width/2,height/2,500,500);
+    //save('you!.png');
   }
 }
 
